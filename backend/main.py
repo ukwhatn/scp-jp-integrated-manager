@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from routers import root
+from routers.users import application
 
 # for db import
 # import sys
@@ -23,4 +24,8 @@ app.mount("/static", StaticFiles(directory="/app/static"), name="static")
 # add routers
 app.include_router(
     root.router
+)
+
+app.include_router(
+    application.router
 )

@@ -27,6 +27,7 @@ services:
     env_file:
       - ./envs/db.env
       - ./envs/sentry.env
+      - ./envs/application_password.env
     networks:
       - cache_network
     restart: always
