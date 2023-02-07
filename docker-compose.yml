@@ -9,7 +9,7 @@ services:
       - ./frontend:/src
     command: sh -c "PORT=3001 yarn start"
     ports:
-      - 60998:3001
+      - "127.0.0.1:60998:3001"
     env_file:
       - ./envs/sentry.env
     stdin_open: true
@@ -23,7 +23,7 @@ services:
       - ./backend:/app
       - ./db:/user_modules/db
     ports:
-      - 60999:8080
+      - "127.0.0.1:60999:8080"
     env_file:
       - ./envs/db.env
       - ./envs/sentry.env

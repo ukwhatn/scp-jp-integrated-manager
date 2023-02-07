@@ -1,7 +1,12 @@
 import asyncio
+import logging
 
 from user_application_update import executable_functions as user_application_update_functions
 
+# logger
+logging.basicConfig(level=logging.INFO)
+
+# targets
 targets = user_application_update_functions
 
 

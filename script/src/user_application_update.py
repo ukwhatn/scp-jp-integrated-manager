@@ -1,13 +1,19 @@
 import asyncio
+import logging
 
 from db.cruds import user_application_key
+
+logger = logging.getLogger(__name__)
 
 
 async def update_key():
     while True:
-        key = user_application_key.create_key()
-        print(key)
-        await asyncio.sleep(60 * 60 * 24)
+        logger.info("Checking keys...")
+        key = user_application_key.create_key_if_expired()
+        if key is not None:
+            logger.info(f"Created new key: {key}")
+        # 30分ごとにチェック
+        await asyncio.sleep(60 * 30)
 
 
 executable_functions = [
