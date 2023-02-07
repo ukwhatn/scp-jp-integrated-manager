@@ -58,6 +58,18 @@ services:
       - ./envs/sentry.env
     restart: on-failure
 
+  script:
+    build:
+      context: .
+      dockerfile: dockerfiles/script/Dockerfile
+    volumes:
+      - ./script:/app
+      - ./db:/user_modules/db
+    env_file:
+      - ./envs/db.env
+    stdin_open: true
+    restart: always
+
 networks:
   cache_network:
     driver: bridge

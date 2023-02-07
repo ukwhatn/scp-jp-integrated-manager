@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from routers import root
-from routers.users import application
+from routers.layout_support import layout_support
+from routers.users import application as users_application
 
 # for db import
 # import sys
@@ -27,5 +28,9 @@ app.include_router(
 )
 
 app.include_router(
-    application.router
+    users_application.router
+)
+
+app.include_router(
+    layout_support.router
 )

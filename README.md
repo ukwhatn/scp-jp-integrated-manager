@@ -1,4 +1,14 @@
-# React - FastAPI - DiscordBot Stack Template
+# SCP-JP integrated management system
+
+## 注意
+
+proxyサーバーを使用している場合、以下のように設定してください。
+
+```example_site.conf
+proxy_set_header   Host             $host;
+proxy_set_header   X-Real-IP        $remote_addr;
+proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+```
 
 ## IDEAにおけるプロジェクト構造
 
@@ -11,11 +21,3 @@
 ### 名前空間パッケージ
 
 * db
-
-## reactプロジェクト生成コマンド
-
-リポジトリ作成時に実行する (development.shで自動実行)
-
- ```sh
-docker compose run --rm frontend sh -c "create-react-app app --template typescript"
- ```

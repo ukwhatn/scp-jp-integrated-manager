@@ -4,6 +4,10 @@ import random
 from db.engine import Session
 from db.models import UserApplicationPassword
 
+CHAR_BORDER = "\u200B"
+CHAR_ZERO = "\u200C"
+CHAR_ONE = "\u200D"
+
 
 def _get_passwords() -> dict:
     passwords = {}
@@ -15,6 +19,16 @@ def _get_passwords() -> dict:
             break
         passwords[cnt] = password
     return passwords
+
+
+def encode(password: str, user_id: int) -> str:
+    encoded_user_id = str(bin(user_id)[2:]).replace("0", CHAR_ZERO).replace("1", CHAR_ONE)
+    index = random.randint(1, len(password) - 2)
+    return password[:index] + CHAR_BORDER + encoded_user_id + CHAR_BORDER + password[index:]
+
+
+def decode(password: str) -> int:
+    return int(password.split(CHAR_BORDER)[1].replace(CHAR_ZERO, "0").replace(CHAR_ONE, "1"), 2)
 
 
 def get(user_id: int):
@@ -32,7 +46,7 @@ def get(user_id: int):
             # DBに合言葉を登録
             data = UserApplicationPassword(
                 user_id=user_id,
-                password=passwords[index]
+                password=encode(passwords[index], user_id)
             )
             session.add(data)
 

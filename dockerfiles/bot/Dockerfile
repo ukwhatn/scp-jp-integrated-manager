@@ -1,5 +1,7 @@
 FROM python:3.11-slim
 
+ENV PYTHONPATH "${PYTHONPATH}:/user_modules"
+
 WORKDIR /app
 
 RUN apt-get update && \
