@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host --strictPort --https --logLevel debug ",
+    "dev": "vite --host --strictPort",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
