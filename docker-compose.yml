@@ -7,9 +7,10 @@ services:
       dockerfile: dockerfiles/frontend/Dockerfile
     volumes:
       - ./frontend:/src
-    command: sh -c "PORT=3001 yarn start"
+      - node_modules:/src/app/node_modules
+    command: sh -c "yarn install && yarn ${BUILD_CMD:-dev}"
     ports:
-      - 60998:3001
+      - "127.0.0.1:60998:5173"
     env_file:
       - ./envs/sentry.env
     stdin_open: true
@@ -23,10 +24,11 @@ services:
       - ./backend:/app
       - ./db:/user_modules/db
     ports:
-      - 60999:8080
+      - "127.0.0.1:60999:8080"
     env_file:
       - ./envs/db.env
       - ./envs/sentry.env
+      - ./envs/application_password.env
     networks:
       - cache_network
     restart: always
@@ -57,6 +59,22 @@ services:
       - ./envs/sentry.env
     restart: on-failure
 
+  script:
+    build:
+      context: .
+      dockerfile: dockerfiles/script/Dockerfile
+    volumes:
+      - ./script:/app
+      - ./db:/user_modules/db
+    env_file:
+      - ./envs/db.env
+    stdin_open: true
+    restart: always
+
 networks:
   cache_network:
     driver: bridge
+
+volumes:
+  node_modules:
+

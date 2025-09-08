@@ -2,5 +2,5 @@
 cd "$(dirname "$0")"
 
 # frontend init
-docker-compose build
-docker compose run --rm frontend sh -c "yarn"
+docker-compose build frontend
+docker-compose run --rm frontend sh -c "cd /src && yarn create vite app --template react-ts"

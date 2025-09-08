@@ -1,5 +1,7 @@
 FROM python:3.11-slim
 
+ENV PYTHONPATH "${PYTHONPATH}:/user_modules"
+
 WORKDIR /app
 
 RUN apt-get update && \
@@ -20,4 +22,4 @@ RUN pip install --no-cache-dir --upgrade -r /requirements/db.txt
 ADD redis/py/requirements.txt /requirements/redis.txt
 RUN pip install --no-cache-dir --upgrade -r /requirements/redis.txt
 
-CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8080", "--proxy-headers"]

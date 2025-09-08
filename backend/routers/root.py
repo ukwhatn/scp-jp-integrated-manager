@@ -5,8 +5,6 @@ from fastapi import APIRouter
 
 from crud.redis import RedisCrud
 
-sys.path.append("/user_modules")
-
 # jinja2 template
 # from fastapi.templating import Jinja2Templates
 
